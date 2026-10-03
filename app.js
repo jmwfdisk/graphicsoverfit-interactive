@@ -363,7 +363,7 @@ colorpopObserver.observe(heroPhoto);
 // Click-triggered cascade retains the closing link's normal navigation.
 (() => {
  const link=document.querySelector('.closing-link');
- const arrow=link.querySelector('.closing-arrow');
+ const arrow=link.querySelector('.closing-arrow'),bubble=link.querySelector('.click-me');
  link.setAttribute('aria-label','MAKE IT YOUR OWN. 스토어 보기');
  link.replaceChildren();let index=0;
  ['MAKE IT','YOUR OWN.'].forEach((text,row)=>{
@@ -373,7 +373,7 @@ colorpopObserver.observe(heroPhoto);
    const front=document.createElement('span');front.className='cascade-front';front.textContent=char===' '?'\u00a0':char;
    const echo=front.cloneNode(true);echo.className='cascade-echo';cell.append(front,echo);line.append(cell);
   }
-  if(row)line.append(arrow);link.append(line);
+  line.append(row?arrow:bubble);link.append(line);
  });
  let running=false,animations=[],generation=0;
  // Sample the same mass-1 spring as the default preset (220 / 16).

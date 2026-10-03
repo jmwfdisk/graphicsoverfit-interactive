@@ -318,3 +318,7 @@ html.motion-paused{scroll-behavior:auto}
 .hero .palette{position:absolute;top:0;right:0;margin:0}
 .hero .hero-photo{margin-top:52px}
 }
+/* MAKE IT 옆 CLICK ME 말풍선: 글자 크기(em)에 맞춰 함께 커지고 줄어든다. */
+.closing-link .click-me{display:inline-block;width:auto;height:.6em;max-width:none;margin-left:.22em;vertical-align:.16em;object-fit:contain;transform:rotate(5deg);transform-origin:left bottom}
+.motion .closing-link.in-view .click-me{animation:click-me-bob 1.8s ease-in-out infinite}
+@keyframes click-me-bob{50%{transform:rotate(1deg) translateY(-.06em)}}

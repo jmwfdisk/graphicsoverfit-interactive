@@ -287,3 +287,8 @@ python3 -m http.server 8080 --bind 127.0.0.1
 - STEP INSIDE YOUR WORLD: 터치 기기에서 제목을 누르면 Letter Cascade가 한 번 재생됩니다(`world.js`).
 - WEAR YOUR GRAPHICS: 터치한 지점에서 글자가 밀려나고, 손을 뗀 뒤 0.35초 유지 후 스프링으로 돌아옵니다. 스크롤이 시작되면 바로 풀립니다. `(hover: hover) and (pointer: fine)` 조건을 제거했습니다(`app.js`).
 - 룩북의 이전/다음 화살표 버튼을 모바일·데스크톱 모두에서 삭제했습니다. 번호 버튼, 스크롤, 방향키로 이동합니다.
+
+## 2026-10-03 CLICK ME 말풍선 추가
+
+- YOUR NEXT CHAPTER의 MAKE IT 글자 오른쪽에 CLICK ME 말풍선을 넣었습니다. 원본은 사용자 제공 `assets/click me.png`(1983×793, 투명 배경)이며, 여백을 잘라 640×226 `assets/click-me.webp`로 변환했습니다. 원본 PNG는 저장소에 올리지 않습니다.
+- 말풍선은 MAKE IT YOUR OWN 링크 안에 있어 누르면 스토어로 이동합니다. 크기는 제목 글자 크기에 비례하며, 화면에 들어오면 위아래로 가볍게 흔들립니다(모션 끄기 시 정지).
