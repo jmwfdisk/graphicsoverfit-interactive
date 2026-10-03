@@ -24,7 +24,7 @@ node --check entry.js && node --check app.js && node --check world.js
 - **새로고침 vs 앵커 이동**: `entry.js`가 reload일 때 해시를 지우고 맨 위로 보낸다. `world.js`의 회오리 진입 애니메이션도 reload에서는 재생하지 않는다. 메뉴/링크의 구역 이동은 유지되어야 한다.
 - **JS가 DOM을 재구성함**: `app.js`가 런타임에 래퍼를 만들고 섹션 `id`를 래퍼로 옮긴다 — `.people` → `.people-track`(룩북), `.archive` → `.archive-track`(Collection Surfer). 앵커(`#people`, `#art`)는 실제로 이 래퍼를 가리킨다. 색상 팔레트, 룩북 번호 버튼(`.shot-nav`), 상태 표시 등도 JS가 생성한다. HTML만 보고 구조를 판단하지 말 것.
 - **스크롤 연동 섹션 패턴**: 세로 스크롤 거리를 sticky 스테이지의 진행도로 바꾸는 방식(첫 화면 3D 갤러리, 히어로 takeover, 룩북, 아카이브). 공통적으로 `requestAnimationFrame` 1회 예약 + CSS 변수(`--world-progress`, `--gallery-progress`, `--product-scale` 등)로 스타일에 전달한다.
-- **데스크톱 전용 스크롤 연동 조건**: 룩북은 `min-width: 901px` + `pointer: fine` + 높이 620px 이상 + 모션 허용, 아카이브는 `min-width: 901px` + `min-height: 680px` + `pointer: fine`. 그 외에는 가로 스와이프/수동 탐색으로 폴백.
+- **스크롤 연동 켜짐 조건**: 포인터 종류와 무관하게 모바일·터치에서도 켜진다. 룩북은 높이 620px 이상 + 모션 허용, 아카이브는 너비 901px 이상이면 높이 680px 이상, 900px 이하면 높이 600px 이상(좁은 화면용 배치는 `styles.css` 끝의 `max-width:900px` 블록). 그 외에는 가로 스와이프/격자로 폴백. 높이는 `innerHeight`가 아니라 `app.js`의 `stableHeight()`(100svh)로 잰다 — 모바일 주소창이 접힐 때 구간 길이가 튀지 않게 하기 위함.
 - **데이터가 HTML과 JS에 나뉨**: 첫 화면 작품 제목·설명은 `world.js`의 `works` 배열, 제품 이름·설명·이미지 파일명 접두어(`prefix` → `assets/<prefix>-front|back.webp`)는 `app.js`의 `products` 객체, 아트 모달 내용은 HTML `data-image`/`data-title`/`data-description`, 룩북 이름은 HTML 캡션에서 읽는다. 항목을 추가·삭제할 때 양쪽 개수와 순서를 맞춘다.
 
 ## 수정 시 유의

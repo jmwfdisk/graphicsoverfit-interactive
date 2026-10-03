@@ -62,7 +62,11 @@ function updateScroll(){const rect=productWindow.getBoundingClientRect();if(!red
 window.addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(updateScroll);ticking=true;}},{passive:true});updateScroll();
 const gallery=document.querySelector('.lookbook');
 const shots=[...gallery.querySelectorAll('figure')];
-const galleryDesktop=matchMedia('(min-width: 901px) and (pointer: fine)');
+// 100svh 기준 높이: 모바일 주소창이 접히고 펴져도 변하지 않아 스크롤 구간 길이가 튀지 않는다.
+const viewportProbe=document.createElement('div');
+viewportProbe.style.cssText='position:fixed;top:0;left:0;width:0;height:100svh;visibility:hidden;pointer-events:none';
+document.body.append(viewportProbe);
+function stableHeight(){return viewportProbe.offsetHeight||innerHeight;}
 const prev=document.querySelector('#gallery-prev'),next=document.querySelector('#gallery-next');
 function galleryState(){prev.disabled=gallery.scrollLeft<=2;next.disabled=gallery.scrollLeft>=gallery.scrollWidth-gallery.clientWidth-2;}
 function shotPosition(index){return shots[index].offsetLeft-shots[0].offsetLeft;}
@@ -114,7 +118,7 @@ function renderGalleryScroll(){
 }
 function measureGalleryScroll(){
   // Short landscape windows and reduced-motion preferences retain manual browsing.
-  const enabled=!reduceMotion.matches&&window.innerHeight>=620&&galleryDesktop.matches;
+  const enabled=!reduceMotion.matches&&stableHeight()>=620;
   const width=gallery.clientWidth*(innerWidth<=600?.78:innerWidth<=900?.42:.31);
   gallery.style.setProperty('--shot-width',`${width}px`);
   gallery.style.setProperty('--gallery-edge',`${Math.max(0,(gallery.clientWidth-width)/2)}px`);
@@ -129,7 +133,6 @@ function measureGalleryScroll(){
 window.addEventListener('scroll',()=>{if(!galleryFrame)galleryFrame=requestAnimationFrame(renderGalleryScroll);},{passive:true});
 window.addEventListener('resize',measureGalleryScroll);
 reduceMotion.addEventListener('change',measureGalleryScroll);
-galleryDesktop.addEventListener('change',measureGalleryScroll);
 new ResizeObserver(measureGalleryScroll).observe(gallery);
 measureGalleryScroll();
 
@@ -399,7 +402,6 @@ colorpopObserver.observe(heroPhoto);
 (() => {
  const section=document.querySelector('.archive'),grid=section.querySelector('.art-grid');
  const cards=[...grid.querySelectorAll('.art-card')];
- const desktop=matchMedia('(min-width: 901px) and (min-height: 680px) and (pointer: fine)');
  const track=document.createElement('div');track.className='archive-track';
  track.id=section.id;section.removeAttribute('id');section.before(track);track.append(section);
  const controls=document.createElement('div');controls.className='surfer-controls';controls.hidden=true;
@@ -407,7 +409,7 @@ colorpopObserver.observe(heroPhoto);
  const navigation=document.createElement('div');navigation.setAttribute('role','group');navigation.setAttribute('aria-label','아트워크 선택');
  const hint=document.createElement('span');hint.textContent='SCROLL TO EXPLORE ↓';
  controls.append(status,navigation,hint);section.append(controls);
- let enabled=false,frame=0,step=0;
+ let enabled=false,frame=0,step=0,narrow=false;
  const buttons=cards.map((card,index)=>{
   const button=document.createElement('button');button.type='button';button.textContent=String(index+1).padStart(2,'0');
   button.setAttribute('aria-label',`${card.querySelector('.card-caption span').textContent} 작품으로 이동`);
@@ -427,8 +429,8 @@ colorpopObserver.observe(heroPhoto);
   const current=Math.round(position);
   cards.forEach((card,index)=>{
    const offset=index-position,depth=Math.abs(offset);
-   card.style.setProperty('--surf-x',`${offset*Math.min(innerWidth*.19,290)}px`);
-   card.style.setProperty('--surf-y',`${-offset*Math.min(innerHeight*.18,165)}px`);
+   card.style.setProperty('--surf-x',`${offset*(narrow?innerWidth*.5:Math.min(innerWidth*.19,290))}px`);
+   card.style.setProperty('--surf-y',`${-offset*(narrow?stableHeight()*.06:Math.min(innerHeight*.18,165))}px`);
    card.style.setProperty('--surf-z',`${-depth*150}px`);
    card.style.setProperty('--surf-angle',`-18deg`);
    card.style.opacity=String(Math.max(0,1-Math.max(0,depth-1)*.6));
@@ -440,14 +442,17 @@ colorpopObserver.observe(heroPhoto);
   status.textContent=`${String(current+1).padStart(2,'0')} / ${String(cards.length).padStart(2,'0')} — ${cards[current].querySelector('.card-caption span').textContent}`;
  }
  function measure(){
-  enabled=desktop.matches&&!reduceMotion.matches;
+  // 좁은 화면은 카드를 좌우로 넓게 벌리고, 한 장당 스크롤 거리를 줄인다.
+  const height=stableHeight();
+  narrow=innerWidth<=900;
+  enabled=!reduceMotion.matches&&height>=(narrow?600:680);
   track.classList.toggle('surfer-enabled',enabled);controls.hidden=!enabled;
-  step=Math.max(400,innerHeight*.7);
-  track.style.height=enabled?`${innerHeight+step*(cards.length-1)}px`:'';
+  step=narrow?Math.max(300,height*.5):Math.max(400,height*.7);
+  track.style.height=enabled?`${height+step*(cards.length-1)}px`:'';
   if(enabled){render();return;}
   cards.forEach(card=>{['--surf-x','--surf-y','--surf-z','--surf-angle','opacity','z-index','visibility'].forEach(name=>card.style.removeProperty(name));card.classList.remove('surfer-current');});
  }
  window.addEventListener('scroll',()=>{if(enabled&&!frame)frame=requestAnimationFrame(render);},{passive:true});
- window.addEventListener('resize',measure);desktop.addEventListener('change',measure);reduceMotion.addEventListener('change',measure);
+ window.addEventListener('resize',measure);reduceMotion.addEventListener('change',measure);
  measure();
 })();
