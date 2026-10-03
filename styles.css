@@ -318,5 +318,3 @@ html.motion-paused{scroll-behavior:auto}
 .hero .palette{position:absolute;top:0;right:0;margin:0}
 .hero .hero-photo{margin-top:52px}
 }
-/* 모바일 룩북은 번호 버튼과 스크롤로 이동하므로 좌우 화살표를 숨긴다. */
-@media(max-width:600px){#gallery-prev,#gallery-next{display:none}}

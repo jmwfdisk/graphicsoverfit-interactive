@@ -67,8 +67,6 @@ const viewportProbe=document.createElement('div');
 viewportProbe.style.cssText='position:fixed;top:0;left:0;width:0;height:100svh;visibility:hidden;pointer-events:none';
 document.body.append(viewportProbe);
 function stableHeight(){return viewportProbe.offsetHeight||innerHeight;}
-const prev=document.querySelector('#gallery-prev'),next=document.querySelector('#gallery-next');
-function galleryState(){prev.disabled=gallery.scrollLeft<=2;next.disabled=gallery.scrollLeft>=gallery.scrollWidth-gallery.clientWidth-2;}
 function shotPosition(index){return shots[index].offsetLeft-shots[0].offsetLeft;}
 function currentShot(){
  let closest=0;
@@ -76,8 +74,6 @@ function currentShot(){
  return closest;
 }
 function moveGallery(direction){setGalleryPosition(shotPosition(Math.max(0,Math.min(shots.length-1,currentShot()+direction))),true);}
-prev.addEventListener('click',()=>moveGallery(-1));next.addEventListener('click',()=>moveGallery(1));
-gallery.addEventListener('scroll',galleryState,{passive:true});window.addEventListener('resize',galleryState);galleryState();
 gallery.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();moveGallery(e.key==='ArrowRight'?1:-1);}});
 const dialog=document.querySelector('#art-dialog');
 document.querySelectorAll('[data-image]').forEach(card=>card.addEventListener('click',()=>{document.querySelector('#dialog-image').src=card.dataset.image;document.querySelector('#dialog-image').alt=card.querySelector('img').alt;document.querySelector('#dialog-title').textContent=card.dataset.title;document.querySelector('#dialog-description').textContent=card.dataset.description;dialog.showModal();document.body.classList.add('modal-open');}));
@@ -88,7 +84,7 @@ document.querySelector('#year').textContent=new Date().getFullYear();
 let dragStart=null;
 gallery.addEventListener('pointerdown',e=>{if(e.pointerType!=='mouse'||e.button!==0)return;dragStart={x:e.clientX,left:gallery.scrollLeft};gallery.setPointerCapture(e.pointerId);gallery.classList.add('dragging');});
 gallery.addEventListener('pointermove',e=>{if(dragStart)setGalleryPosition(dragStart.left-(e.clientX-dragStart.x));});
-function stopDrag(){dragStart=null;gallery.classList.remove('dragging');galleryState();}
+function stopDrag(){dragStart=null;gallery.classList.remove('dragging');}
 gallery.addEventListener('pointerup',stopDrag);gallery.addEventListener('pointercancel',stopDrag);gallery.addEventListener('lostpointercapture',stopDrag);
 const heroPhoto=document.querySelector('.hero-photo');
 // A native vertical scroll range drives the sticky horizontal gallery.
@@ -114,7 +110,6 @@ function renderGalleryScroll(){
   const position=Math.max(0,Math.min(galleryDistance,-peopleTrack.getBoundingClientRect().top));
   gallery.scrollLeft=position;
   peopleSection.style.setProperty('--gallery-progress',String(galleryDistance?position/galleryDistance:0));
-  galleryState();
 }
 function measureGalleryScroll(){
   // Short landscape windows and reduced-motion preferences retain manual browsing.
@@ -128,7 +123,6 @@ function measureGalleryScroll(){
   document.querySelector('.gallery-bottom span:last-child').textContent=enabled?'SCROLL DOWN TO EXPLORE →':'DRAG / SWIPE TO EXPLORE ↔';
   gallery.setAttribute('aria-label',enabled?'착용 사진 갤러리. 세로 스크롤 또는 번호 버튼으로 탐색하세요.':'착용 사진 갤러리. 좌우로 쓸어 넘기거나 방향키와 번호 버튼으로 탐색하세요.');
   renderGalleryScroll();
-  galleryState();
 }
 window.addEventListener('scroll',()=>{if(!galleryFrame)galleryFrame=requestAnimationFrame(renderGalleryScroll);},{passive:true});
 window.addEventListener('resize',measureGalleryScroll);
