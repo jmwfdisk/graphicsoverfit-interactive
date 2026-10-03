@@ -40,8 +40,8 @@ node --check world.js
 
 ## 배포
 
-`index.html`, `styles.css`, `entry.js`, `app.js`, `world.js`, `assets/`를 함께 정적 호스팅에 올립니다. 공개 주소: https://jmwfdisk.github.io/graphicsoverfit-interactive/
+`index.html`, `styles.css`, `entry.js`, `app.js`, `world.js`, `assets/`를 함께 정적 호스팅에 올립니다. 공개 주소: https://graphicsoverfit.com/
 
 저장소: https://github.com/jmwfdisk/graphicsoverfit-interactive
 
-`main` 브랜치에 push하면 `.github/workflows/pages.yml`이 스크립트 문법 검사 후 사이트 파일만 GitHub Pages에 배포합니다. OG 주소도 공개 주소로 설정했습니다.
+`main` 브랜치에 push하면 `.github/workflows/pages.yml`이 스크립트 문법 검사 후 사이트 파일만 GitHub Pages에 배포합니다. OG 주소도 공개 주소로 설정했습니다. 도메인 `graphicsoverfit.com`은 가비아 DNS에서 GitHub Pages로 연결하며, 저장소 Pages 설정의 Custom domain으로 지정합니다(`CNAME` 파일 불필요).

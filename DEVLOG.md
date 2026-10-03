@@ -259,3 +259,9 @@ python3 -m http.server 8080 --bind 127.0.0.1
 ## 2026-10-03 GitHub Pages 배포 설정
 
 - `jmwfdisk/graphicsoverfit-interactive` 공개 저장소와 GitHub Pages 자동 배포를 구성했습니다. main push 시 문법 검사 후 사이트 파일을 배포합니다.
+
+## 2026-10-03 커스텀 도메인 연결
+
+- 공개 주소를 `https://graphicsoverfit.com/`으로 변경했습니다. 가비아 DNS에 GitHub Pages A 레코드 4개와 `www` → `jmwfdisk.github.io` CNAME을 추가했습니다.
+- 다른 GitHub 계정이 도메인을 선점하고 있어 계정 단위 도메인 인증(TXT `_github-pages-challenge-jmwfdisk`)으로 해제했습니다. 이 TXT 레코드는 삭제하지 않습니다.
+- Actions 배포 방식이라 `CNAME` 파일 없이 저장소 Pages 설정으로 도메인을 지정합니다. `og:url`, `og:image`도 새 주소로 바꿨습니다.
