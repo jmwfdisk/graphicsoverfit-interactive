@@ -228,7 +228,6 @@ colorpopObserver.observe(heroPhoto);
 // Cursor proximity repulsion, adapted for the existing scroll-scaled title.
 (() => {
  const title=document.querySelector('#hero-title');
- const finePointer=matchMedia('(hover: hover) and (pointer: fine)');
  const letters=[];
  title.setAttribute('aria-label','WEAR YOUR GRAPHICS.');
  [...title.children].forEach(line=>{
@@ -246,10 +245,10 @@ colorpopObserver.observe(heroPhoto);
    node.replaceWith(fragment);
   });
  });
- let pointer=null,visible=false,frame=0,last=0;
- const enabled=()=>visible&&!document.hidden&&!reduceMotion.matches&&finePointer.matches;
+ let pointer=null,visible=false,frame=0,last=0,release=0;
+ const enabled=()=>visible&&!document.hidden&&!reduceMotion.matches;
  function reset(){
-  pointer=null;cancelAnimationFrame(frame);frame=0;last=0;
+  pointer=null;clearTimeout(release);cancelAnimationFrame(frame);frame=0;last=0;
   letters.forEach(letter=>{letter.x=letter.y=letter.vx=letter.vy=0;letter.glyph.style.transform='';});
  }
  function start(){if(enabled()&&!frame){last=0;frame=requestAnimationFrame(tick);}}
@@ -284,12 +283,26 @@ colorpopObserver.observe(heroPhoto);
   if(event.pointerType!=='mouse'||!enabled())return;
   pointer={x:event.clientX,y:event.clientY};start();
  });
- takeoverStage.addEventListener('pointerleave',()=>{pointer=null;start();});
- window.addEventListener('scroll',()=>{pointer=null;start();},{passive:true});
+ // 터치는 손을 떼는 순간 pointerleave가 따라오므로 마우스만 즉시 해제한다.
+ takeoverStage.addEventListener('pointerleave',event=>{if(event.pointerType!=='mouse')return;pointer=null;start();});
+ // 터치: 누른 지점에서 글자를 밀어내고, 짧은 탭도 보이도록 손을 뗀 뒤 잠시 유지한다.
+ function touchAt(event){
+  if(event.pointerType==='mouse'||!enabled())return;
+  clearTimeout(release);pointer={x:event.clientX,y:event.clientY};start();
+ }
+ function touchEnd(event){
+  if(event.pointerType==='mouse')return;
+  clearTimeout(release);release=setTimeout(()=>{pointer=null;start();},350);
+ }
+ takeoverStage.addEventListener('pointerdown',touchAt);
+ takeoverStage.addEventListener('pointermove',touchAt);
+ takeoverStage.addEventListener('pointerup',touchEnd);
+ takeoverStage.addEventListener('pointercancel',touchEnd);
+ window.addEventListener('scroll',()=>{clearTimeout(release);pointer=null;start();},{passive:true});
  window.addEventListener('blur',reset);
  window.addEventListener('resize',reset);
  document.addEventListener('visibilitychange',reset);
- reduceMotion.addEventListener('change',reset);finePointer.addEventListener('change',reset);
+ reduceMotion.addEventListener('change',reset);
  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(!visible)reset();},{threshold:0}).observe(takeoverStage);
 })();
 

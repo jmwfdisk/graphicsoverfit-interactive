@@ -95,6 +95,12 @@
   if(over&&!inside)play();inside=over;
  });
  stage.addEventListener('pointerleave',()=>{inside=false;});
+ // 터치에는 호버가 없으므로 제목 영역을 누르면 한 번 재생한다.
+ stage.addEventListener('pointerdown',event=>{
+  if(event.pointerType==='mouse')return;
+  const r=title.getBoundingClientRect();
+  if(event.clientX>=r.left&&event.clientX<=r.right&&event.clientY>=r.top&&event.clientY<=r.bottom)play();
+ });
  motion.addEventListener('change',reset);
  document.addEventListener('visibilitychange',reset);
  window.addEventListener('blur',reset);
