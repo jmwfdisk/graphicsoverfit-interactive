@@ -311,3 +311,10 @@ html.motion-paused{scroll-behavior:auto}
 .surfer-status{min-width:0;flex-basis:100%}
 .surfer-controls>span:last-child{display:none}
 }
+/* 모바일: 컬러칩을 히어로 사진 위 오른쪽으로 올린다. hero-copy 안에 있으므로 기준을 hero-bottom으로 바꾼다. */
+@media(max-width:600px){
+.hero .hero-bottom{position:relative}
+.hero .hero-copy{position:static}
+.hero .palette{position:absolute;top:0;right:0;margin:0}
+.hero .hero-photo{margin-top:52px}
+}
