@@ -185,7 +185,7 @@ footer>div{grid-column:3;grid-row:1;justify-self:end;white-space:nowrap}
 .world-links{display:flex;gap:20px;flex-wrap:wrap;justify-content:flex-end}
 .motion-toggle{position:fixed;right:16px;bottom:16px;z-index:30;min-height:44px;padding:10px 16px;border:1px solid var(--ink);border-radius:999px;background:var(--paper);color:var(--ink);font-size:12px;box-shadow:0 2px 12px #20231e18}
 .motion-toggle:disabled{cursor:default}
-@media(max-width:600px){.world-links{gap:8px;flex-direction:column}.motion-toggle{right:10px;bottom:max(10px,env(safe-area-inset-bottom));font-size:11px}.shot-nav{flex-wrap:wrap}.shot-nav button{min-width:32px;min-height:40px}}
+@media(max-width:600px){.world-links{gap:8px;flex-direction:column}.motion-toggle{right:10px;bottom:max(10px,env(safe-area-inset-bottom));font-size:11px}.shot-nav{flex-wrap:wrap}.shot-nav button{min-width:36px;min-height:36px}}
 /* The page toggle follows the same motion policy as the OS preference. */
 html.motion-paused{scroll-behavior:auto}
 .motion-paused *, .motion-paused *::before,.motion-paused *::after{animation:none!important;transition:none!important}
