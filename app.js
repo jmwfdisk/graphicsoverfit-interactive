@@ -464,7 +464,7 @@ colorpopObserver.observe(heroPhoto);
  measure();
 })();
 
-// Flip Text: 글자마다 호버(터치) 시 X축으로 한 바퀴 돌며 살짝 떠오른다.
+// Flip Text: 제목이 스크롤로 화면에 들어오면 모든 글자가 동시에 X축으로 한 바퀴 돈다.
 (() => {
  const heading=document.querySelector('.product-copy h2');
  heading.setAttribute('aria-label',heading.innerText.replace(/\s*\n\s*/g,' '));
@@ -474,24 +474,15 @@ colorpopObserver.observe(heroPhoto);
   const fragment=document.createDocumentFragment();
   for(const char of node.textContent){
    const cell=document.createElement('span');cell.className='flip-char';cell.setAttribute('aria-hidden','true');
-   cell.textContent=char===' '?' ':char;fragment.append(cell);
+   cell.textContent=char===' '?'\u00a0':char;fragment.append(cell);
   }
   node.replaceWith(fragment);
  });
- const timers=new WeakMap();
- function flip(cell,hold){
-  if(reduceMotion.matches)return;
-  clearTimeout(timers.get(cell));cell.classList.add('is-flipped');
-  if(hold)timers.set(cell,setTimeout(()=>cell.classList.remove('is-flipped'),hold));
- }
- heading.addEventListener('pointerover',event=>{if(event.pointerType==='mouse'&&event.target.classList.contains('flip-char'))flip(event.target);});
- heading.addEventListener('pointerout',event=>{if(event.pointerType==='mouse'&&event.target.classList.contains('flip-char'))event.target.classList.remove('is-flipped');});
- // 터치는 호버가 없으므로 손가락 아래 글자를 잠시 뒤집었다가 되돌린다.
- function touch(event){
-  if(event.pointerType==='mouse')return;
-  const cell=document.elementFromPoint(event.clientX,event.clientY);
-  if(cell&&cell.classList.contains('flip-char')&&heading.contains(cell)&&!cell.classList.contains('is-flipped'))flip(cell,650);
- }
- heading.addEventListener('pointerdown',touch);heading.addEventListener('pointermove',touch);
- reduceMotion.addEventListener('change',()=>heading.querySelectorAll('.is-flipped').forEach(cell=>cell.classList.remove('is-flipped')));
+ const stop=()=>heading.classList.remove('flip-playing');
+ // 화면을 벗어났다 다시 들어올 때마다 재생한다.
+ new IntersectionObserver(entries=>{
+  if(!entries[0].isIntersecting){stop();return;}
+  if(!reduceMotion.matches)heading.classList.add('flip-playing');
+ },{threshold:.6}).observe(heading);
+ reduceMotion.addEventListener('change',stop);
 })();
