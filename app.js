@@ -310,6 +310,7 @@ colorpopObserver.observe(heroPhoto);
   {mode:'snappy',stiffness:500,damping:22,staggerDuration:.02,staggerFrom:'first'}
  ];
  heading.setAttribute('aria-label',lines.map(line=>line.textContent).join(' '));
+ const players=[];
  lines.forEach((line,lineIndex)=>{
   const preset=presets[lineIndex],chars=[...line.textContent],letters=[];
   line.textContent='';line.classList.add('manifesto-cascade',`cascade-${preset.mode}`);
@@ -321,18 +322,18 @@ colorpopObserver.observe(heroPhoto);
    const echo=front.cloneNode(true);echo.className='cascade-echo';cell.append(front,echo);line.append(cell);
    letters.push({front,echo,delay:Math.abs(index-origin)*preset.staggerDuration,x:0,v:0});
   });
-  let frame=0,start=0,last=0;
+  let frame=0,start=0,last=0,done=null;
   function reset(){
-   cancelAnimationFrame(frame);frame=0;start=last=0;
+   cancelAnimationFrame(frame);frame=0;start=last=0;done=null;
    letters.forEach(letter=>{letter.x=letter.v=0;letter.front.style.cssText='';letter.echo.style.cssText='';});
   }
   function tick(now){
    frame=0;if(reduceMotion.matches||document.hidden){reset();return;}
    if(!start)start=last=now;
    const elapsed=(now-start)/1000,previous=(last-start)/1000;last=now;
-   let finished=true;
+   let finished=true,near=true;
    letters.forEach(letter=>{
-    if(elapsed<letter.delay){finished=false;return;}
+    if(elapsed<letter.delay){finished=near=false;return;}
     const dt=Math.min(.05,Math.max(0,elapsed-Math.max(previous,letter.delay)));
     const steps=Math.max(1,Math.ceil(dt/(1/240))),step=dt/steps;
     for(let i=0;i<steps;i++){
@@ -341,16 +342,20 @@ colorpopObserver.observe(heroPhoto);
     }
     const settled=Math.abs(1-letter.x)<.001&&Math.abs(letter.v)<.005;
     if(!settled)finished=false;
+    if(Math.abs(1-letter.x)>.04||Math.abs(letter.v)>.6)near=false;
     const progress=letter.x;
     letter.front.style.transform=`translateY(${-70*progress}%) rotateX(${85*progress}deg)`;
     letter.front.style.opacity=String(Math.max(0,1-progress*2));
     letter.echo.style.transform=`translateY(${75*(1-progress)}%) rotateX(${-85*(1-progress)}deg)`;
     letter.echo.style.opacity=String(Math.max(0,Math.min(1,progress*3)));
    });
+   // 스프링의 긴 꼬리를 기다리지 않고, 눈에 보이는 움직임이 끝나면 다음 문장을 시작한다.
+   if(near&&done){const next=done;done=null;next();}
    if(finished){reset();return;}
    frame=requestAnimationFrame(tick);
   }
-  function play(){if(reduceMotion.matches||document.hidden||frame)return;frame=requestAnimationFrame(tick);}
+  function play(next){if(reduceMotion.matches||document.hidden||frame)return;done=typeof next==='function'?next:null;frame=requestAnimationFrame(tick);}
+  players.push(play);
   line.addEventListener('pointerenter',event=>{if(event.pointerType==='mouse')play();});
   line.addEventListener('click',play);
   reduceMotion.addEventListener('change',reset);
@@ -358,6 +363,10 @@ colorpopObserver.observe(heroPhoto);
   window.addEventListener('blur',reset);
   new IntersectionObserver(entries=>{if(!entries[0].isIntersecting)reset();}).observe(line);
  });
+ // 제목이 스크롤로 화면에 들어오면 세 문장을 위에서부터 차례로 재생한다.
+ new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting)players[0](()=>players[1](()=>players[2]()));
+ },{threshold:.6}).observe(heading);
 })();
 
 // Click-triggered cascade retains the closing link's normal navigation.
