@@ -40,4 +40,8 @@ node --check world.js
 
 ## 배포
 
-`index.html`, `styles.css`, `entry.js`, `app.js`, `world.js`, `assets/`를 함께 정적 호스팅에 올립니다. 공개 도메인이 정해지면 `og:image`를 해당 도메인의 절대 URL로 바꾸고 `og:url`을 추가합니다. 현재 작업은 로컬 파일에 반영한 상태입니다.
+`index.html`, `styles.css`, `entry.js`, `app.js`, `world.js`, `assets/`를 함께 정적 호스팅에 올립니다. 공개 주소: https://jmwfdisk.github.io/graphicsoverfit-interactive/
+
+저장소: https://github.com/jmwfdisk/graphicsoverfit-interactive
+
+`main` 브랜치에 push하면 `.github/workflows/pages.yml`이 스크립트 문법 검사 후 사이트 파일만 GitHub Pages에 배포합니다. OG 주소도 공개 주소로 설정했습니다.

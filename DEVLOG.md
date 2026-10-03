@@ -255,3 +255,7 @@ python3 -m http.server 8080 --bind 127.0.0.1
 - 얼굴과 티셔츠 하단을 함께 보여주도록 상단 기준에서 세로 18% 위치로 크롭 중심을 조정했습니다.
 
 - HYOIN44 사진을 조금 더 위로 올리기 위해 세로 크롭 위치를 18%에서 25%로 조정했습니다.
+
+## 2026-10-03 GitHub Pages 배포 설정
+
+- `jmwfdisk/graphicsoverfit-interactive` 공개 저장소와 GitHub Pages 자동 배포를 구성했습니다. main push 시 문법 검사 후 사이트 파일을 배포합니다.
