@@ -322,3 +322,7 @@ html.motion-paused{scroll-behavior:auto}
 .closing-link .click-me{display:inline-block;width:auto;height:.6em;max-width:none;margin-left:.22em;vertical-align:.16em;object-fit:contain;transform:rotate(5deg);transform-origin:left bottom}
 .motion .closing-link.in-view .click-me{animation:click-me-bob 1.8s ease-in-out infinite}
 @keyframes click-me-bob{50%{transform:rotate(1deg) translateY(-.06em)}}
+/* Flip Text: 제품 영역 제목의 글자별 뒤집기. */
+.flip-char{display:inline-block;cursor:pointer;transition:transform .4s ease-out}
+.motion .flip-char.is-flipped{transform:translateY(-.14em) rotateX(360deg)}
+.motion-paused .flip-char{transform:none!important;transition:none}

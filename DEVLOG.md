@@ -292,3 +292,8 @@ python3 -m http.server 8080 --bind 127.0.0.1
 
 - YOUR NEXT CHAPTER의 MAKE IT 글자 오른쪽에 CLICK ME 말풍선을 넣었습니다. 원본은 사용자 제공 `assets/click me.png`(1983×793, 투명 배경)이며, 여백을 잘라 640×226 `assets/click-me.webp`로 변환했습니다. 원본 PNG는 저장소에 올리지 않습니다.
 - 말풍선은 MAKE IT YOUR OWN 링크 안에 있어 누르면 스토어로 이동합니다. 크기는 제목 글자 크기에 비례하며, 화면에 들어오면 위아래로 가볍게 흔들립니다(모션 끄기 시 정지).
+
+## 2026-10-03 제품 영역 제목 Flip Text
+
+- "그림이 되고. 옷이 되고. 내가 되고." 제목에 ObsidianUI Flip Text(https://www.obsidianui.dev/docs/flip-text) 효과를 React·motion 없이 CSS 전환으로 옮겼습니다. 글자마다 호버 시 X축 360도 회전 + 0.14em 상승, 0.4초 ease-out입니다.
+- 터치 기기에서는 누르거나 문지른 글자가 0.65초 동안 뒤집혔다가 돌아옵니다. 모션 끄기에서는 동작하지 않습니다.
