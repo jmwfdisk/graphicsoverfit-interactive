@@ -327,3 +327,6 @@ html.motion-paused{scroll-behavior:auto}
 .motion .flip-playing .flip-char{animation:flip-text .8s ease-out both}
 @keyframes flip-text{50%{transform:translateY(-.14em) rotateX(180deg)}100%{transform:translateY(0) rotateX(360deg)}}
 .motion-paused .flip-char{animation:none!important;transform:none!important}
+/* 아카이브 04 Neon Night: 어두운 원화가 잘리지 않도록 전체를 보여준다. */
+.neon-art{background:#141a1a}
+.neon-art img{object-fit:contain;padding:12px}

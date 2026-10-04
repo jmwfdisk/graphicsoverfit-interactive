@@ -12,7 +12,7 @@
 2. 히어로: WEAR YOUR GRAPHICS, 메인 착용 사진과 주변 큐레이터 사진 콜라주
 3. 브랜드 소개: OUR CULTURE
 4. 제품 영역: ESSENTIAL LOGO·GOLDEN YOUTH·PURE YOUTH·SPIRIT 4종 선택, 앞면/뒷면 보기와 디테일 확대
-5. ART ARCHIVE: Just Expression, Golden Youth, Portrait, Skate Culture, Gas Mask, Pride 작품 카드
+5. ART ARCHIVE: Just Expression, Golden Youth, Portrait, Neon Night, Gas Mask, Pride 작품 카드
 6. IN REAL LIFE: 6장의 큐레이터 착용 사진을 세로 스크롤 연동 가로 이동으로 탐색
 7. YOUR NEXT CHAPTER: 인물 사진 2장, MAKE IT YOUR OWN 문구와 CLICK ME 말풍선, GOF 크레용 로고
 
@@ -363,3 +363,8 @@ python3 -m http.server 8080 --bind 127.0.0.1
 - 오른쪽 아래 "모션 끄기" 버튼이 룩북·아카이브 하단 안내 문구(SCROLL … EXPLORE)를 일부 가립니다.
 - 모바일 첫 화면에서 문서 너비가 393px로 화면(390px)보다 3px 넓게 측정된 적이 있습니다. 원인은 찾지 않았습니다.
 - 카드 기울임(아카이브)과 히어로 사진 따라오기는 여전히 마우스 전용입니다.
+
+## 2026-10-04 아카이브 04 교체
+
+- ART ARCHIVE 04번 카드를 Skate Culture에서 Neon Night로 바꿨습니다. 원본은 사용자 제공 `홈페이지 제작/그래픽스오버핏/image/그래픽스오버핏 그림.PNG`(1024×1536)이며 `assets/neon-night.webp`(품질 84)로 변환했습니다.
+- 카드 이름 "NEON NIGHT", 분류 "CHARACTER ART / 04", 설명 문구는 임시로 지은 것입니다. 첫 화면 3D 갤러리의 03 SKATE CULTURE 카드와 `assets/skate-culture.webp`는 그대로 사용합니다.
