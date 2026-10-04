@@ -2,7 +2,7 @@
 
 마지막 업데이트: 2026-10-04
 
-**처음 읽는다면 문서 끝의 「2026-10-04 세션 정리와 재개 지점」부터 봅니다.** 그 위의 날짜별 기록은 이력이며, 일부는 이후 작업으로 바뀌었습니다.
+**처음 읽는다면 「2026-10-04 세션 정리와 재개 지점」부터 봅니다(그 뒤에 추가된 날짜별 기록도 함께 확인).** 그 위의 날짜별 기록은 이력이며, 일부는 이후 작업으로 바뀌었습니다.
 
 이 문서는 다음 작업을 이어갈 때 현재 구현과 사용자 결정 사항을 빠르게 파악하기 위한 기록입니다. 현재 작업 파일은 `index.html`, `styles.css`, `app.js`, `world.js`, `entry.js`, `assets/`입니다.
 
@@ -320,7 +320,7 @@ python3 -m http.server 8080 --bind 127.0.0.1
 
 - 공개 주소: https://graphicsoverfit.com (HTTPS 강제, `www`와 기존 `jmwfdisk.github.io/graphicsoverfit-interactive/`는 자동 이동)
 - 저장소: `jmwfdisk/graphicsoverfit-interactive`, `main` push → `.github/workflows/pages.yml`이 문법 검사 후 `index.html`, `styles.css`, JS 3개, `assets/`만 배포
-- 최신 커밋: `1986290`(기능) 이후 이 문서 정리 커밋. 미커밋 파일은 원본 `assets/click me.png` 하나이며 의도적으로 올리지 않습니다(올리면 `assets/` 전체 복사 때문에 함께 배포됨).
+- 최신 기능 커밋: 「2026-10-04 아카이브 04 교체」(Replace archive card 04 with Neon Night artwork). 정확한 해시는 `git log --oneline`으로 확인합니다. 미커밋 파일은 원본 `assets/click me.png` 하나이며 의도적으로 올리지 않습니다(올리면 `assets/` 전체 복사 때문에 함께 배포됨).
 
 ### 도메인을 다시 연결해야 할 때
 
@@ -331,6 +331,8 @@ python3 -m http.server 8080 --bind 127.0.0.1
 5. Actions 배포 방식이라 `CNAME` 파일은 만들지 않습니다. `index.html`의 `og:url`, `og:image`는 새 도메인 절대 주소입니다.
 
 ### 이번 세션에서 만든 동작과 코드 위치
+
+표 아래 항목 외에 2026-10-04에 아카이브 04번 카드를 Neon Night로 교체했습니다(`index.html` `.art-card` 네 번째, `styles.css` `.neon-art`, `assets/neon-night.webp`). 자세한 내용은 문서 끝 「2026-10-04 아카이브 04 교체」를 봅니다.
 
 | 동작 | 파일·위치 | 핵심 |
 |---|---|---|
@@ -352,9 +354,10 @@ python3 -m http.server 8080 --bind 127.0.0.1
 
 ### 검수 방법
 
+- 8080 포트에 다른 프로젝트 서버가 떠 있을 수 있습니다. 먼저 `curl -s http://127.0.0.1:8080/ | grep title`로 이 사이트인지 확인하고, 아니면 `python3 -m http.server 8137 --bind 127.0.0.1`처럼 다른 포트를 씁니다.
 - 문법: `node --check entry.js && node --check app.js && node --check world.js`
 - 화면: 임시 폴더에 `npm i puppeteer-core` 후 설치된 Chrome(`/Applications/Google Chrome.app`)을 헤드리스로 띄워 `http://127.0.0.1:8080`을 390×844·390×664(모바일, 터치 에뮬레이션)와 1440×900에서 스크롤·터치·캡처했습니다. 저장소에는 테스트 스크립트를 두지 않았습니다.
-- 파일을 고치면 `index.html`의 해당 `?v=` 값을 바꿉니다. 현재 값: `entry.js?v=20261003-review`, `styles.css?v=20261003-flip-scroll`, `app.js?v=20261003-manifesto-auto`, `world.js?v=20261003-touch-titles`.
+- 파일을 고치면 `index.html`의 해당 `?v=` 값을 바꿉니다. 현재 값: `entry.js?v=20261003-review`, `styles.css?v=20261004-neon-night`, `app.js?v=20261003-manifesto-auto`, `world.js?v=20261003-touch-titles`.
 
 ### 확인하지 못한 것과 남은 일
 
@@ -363,6 +366,8 @@ python3 -m http.server 8080 --bind 127.0.0.1
 - 오른쪽 아래 "모션 끄기" 버튼이 룩북·아카이브 하단 안내 문구(SCROLL … EXPLORE)를 일부 가립니다.
 - 모바일 첫 화면에서 문서 너비가 393px로 화면(390px)보다 3px 넓게 측정된 적이 있습니다. 원인은 찾지 않았습니다.
 - 카드 기울임(아카이브)과 히어로 사진 따라오기는 여전히 마우스 전용입니다.
+- 아카이브 04 Neon Night의 카드 이름·분류·설명 문구는 임시입니다. 확대(모달) 화면은 직접 열어 확인하지 않았습니다.
+- 첫 화면 3D 갤러리 03번은 여전히 SKATE CULTURE입니다. 아카이브와 맞출지 미정입니다.
 
 ## 2026-10-04 아카이브 04 교체
 
