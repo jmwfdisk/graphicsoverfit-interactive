@@ -1,6 +1,8 @@
 # Graphics Overfit 브랜드 페이지 개발일지
 
-마지막 업데이트: 2026-10-03
+마지막 업데이트: 2026-10-04
+
+**처음 읽는다면 문서 끝의 「2026-10-04 세션 정리와 재개 지점」부터 봅니다.** 그 위의 날짜별 기록은 이력이며, 일부는 이후 작업으로 바뀌었습니다.
 
 이 문서는 다음 작업을 이어갈 때 현재 구현과 사용자 결정 사항을 빠르게 파악하기 위한 기록입니다. 현재 작업 파일은 `index.html`, `styles.css`, `app.js`, `world.js`, `entry.js`, `assets/`입니다.
 
@@ -9,10 +11,10 @@
 1. 첫 화면: 공식 메인 로고를 중심으로 한 CSS 3D 브랜드 공간
 2. 히어로: WEAR YOUR GRAPHICS, 메인 착용 사진과 주변 큐레이터 사진 콜라주
 3. 브랜드 소개: OUR CULTURE
-4. 제품 영역: Golden Youth 티셔츠 앞면/뒷면 보기와 디테일 확대
+4. 제품 영역: ESSENTIAL LOGO·GOLDEN YOUTH·PURE YOUTH·SPIRIT 4종 선택, 앞면/뒷면 보기와 디테일 확대
 5. ART ARCHIVE: Just Expression, Golden Youth, Portrait, Skate Culture, Gas Mask, Pride 작품 카드
-6. IN REAL LIFE: 6장의 큐레이터 착용 사진을 가로로 탐색
-7. YOUR NEXT CHAPTER: 인물 사진 2장, MAKE IT YOUR OWN 문구, GOF 크레용 로고
+6. IN REAL LIFE: 6장의 큐레이터 착용 사진을 세로 스크롤 연동 가로 이동으로 탐색
+7. YOUR NEXT CHAPTER: 인물 사진 2장, MAKE IT YOUR OWN 문구와 CLICK ME 말풍선, GOF 크레용 로고
 
 ## 사용자 결정 및 적용한 내용
 
@@ -24,6 +26,8 @@
 - YOUR NEXT CHAPTER에는 베이지 티셔츠 사진과 블랙 티셔츠 사진을 함께 두었습니다. 하단 여백을 줄였고, GOF 크레용 로고는 사진 옆이 아닌 MAKE IT YOUR OWN 문구 아래쪽 왼편에 둡니다. 사진과 로고에는 호버 상호작용이 있습니다.
 
 ## 다음 작업: 02 컬렉션 섹션 확장
+
+> 완료된 항목입니다(「2026-10-03 Shop 제품 컬렉션 연동」 참고). 현재 재개 지점은 문서 끝의 「2026-10-04 세션 정리와 재개 지점」을 봅니다.
 
 현재 `02 / FROM ART TO EVERYDAY` 제품 영역에는 Golden Youth 티셔츠 하나만 있습니다. BACK / FRONT는 해당 티셔츠의 뒷면과 앞면 전환이며, 서로 다른 제품을 넘기는 기능은 아닙니다.
 
@@ -42,7 +46,7 @@
 python3 -m http.server 8080 --bind 127.0.0.1
 ```
 
-브라우저에서 `http://127.0.0.1:8080`을 엽니다. 웹용 이미지는 원본 보존을 위해 `assets/` 아래 별도 WebP로 저장합니다. 공식 사이트에는 아직 배포하지 않았습니다.
+브라우저에서 `http://127.0.0.1:8080`을 엽니다. 웹용 이미지는 원본 보존을 위해 `assets/` 아래 별도 WebP로 저장합니다. 배포는 「2026-10-03 GitHub Pages 배포 설정」과 「커스텀 도메인 연결」을 봅니다.
 
 ## 수정 시 유의사항
 
@@ -60,6 +64,8 @@ python3 -m http.server 8080 --bind 127.0.0.1
 
 ## 이어서 작업할 위치
 
+> 완료된 항목입니다(「2026-10-03 Shop 제품 컬렉션 연동」 참고). 현재 재개 지점은 문서 끝의 「2026-10-04 세션 정리와 재개 지점」을 봅니다.
+
 다음 개발 작업은 `02 / FROM ART TO EVERYDAY` 제품 컬렉션입니다. 현재 `index.html`의 `#graphics`에는 GOLDEN YOUTH만 있고, 앞/뒷면 전환은 `app.js`에 연결되어 있습니다. 추가 제품 그래픽과 제품 사진을 확보·선별한 다음, 제품 선택과 각 제품의 앞/뒤 및 디테일 보기를 연결하는 순서로 진행합니다. 다음 작업은 이 섹션부터 시작합니다.
 
 ## 2026-10-01 푸터 로고 및 정렬 업데이트
@@ -70,6 +76,8 @@ python3 -m http.server 8080 --bind 127.0.0.1
 - 중앙 정렬 과정에서 우측 SNS/사이트 링크와 문구가 겹치는 현상을 확인해 푸터를 로고·중앙 문구·우측 링크의 3영역 그리드로 재구성했습니다. 태블릿/모바일에서는 요소가 세로로 재배치됩니다.
 
 ## 다음 세션 재개 지점
+
+> 완료된 항목입니다(「2026-10-03 Shop 제품 컬렉션 연동」 참고). 현재 재개 지점은 문서 끝의 「2026-10-04 세션 정리와 재개 지점」을 봅니다.
 
 다음에는 `02 / FROM ART TO EVERYDAY` 제품 영역을 이어서 작업합니다. 현재 표시 제품은 GOLDEN YOUTH 하나이며 BACK / FRONT 버튼은 동일 제품의 면 전환입니다. 추가 제품 이미지 후보를 브랜드 리소스에서 찾고, 사용 가능한 이미지에 맞춰 제품 선택 UI와 제품별 앞/뒤·상세 보기 동작을 설계하고 구현합니다. 페이지 파일 구조와 미리보기 실행 방법은 위의 「개발 및 미리보기」를 참고합니다.
 
@@ -303,3 +311,55 @@ python3 -m http.server 8080 --bind 127.0.0.1
 - "생각은 자유롭게. 표현은 대담하게. 핏은 여유롭게." 제목이 화면에 60% 이상 들어오면 세 문장이 위에서부터 차례로 재생됩니다. 문장별 스프링(center / bouncy / snappy)은 그대로입니다.
 - 다음 문장은 앞 문장의 스프링이 완전히 멈출 때가 아니라 눈에 보이는 움직임이 끝날 때(변위 4% 이내) 시작합니다. 시작 시점은 약 0초 / 0.6초 / 1.75초입니다.
 - 기존 마우스 호버·클릭 재생은 유지합니다. 화면을 벗어났다 다시 들어오면 다시 재생합니다.
+
+## 2026-10-04 세션 정리와 재개 지점
+
+2026-10-03 세션(도메인 연결 ~ 스크롤 자동 효과)의 최종 상태입니다. 이 섹션만 읽고도 같은 결과를 다시 만들 수 있도록 적습니다.
+
+### 배포 상태
+
+- 공개 주소: https://graphicsoverfit.com (HTTPS 강제, `www`와 기존 `jmwfdisk.github.io/graphicsoverfit-interactive/`는 자동 이동)
+- 저장소: `jmwfdisk/graphicsoverfit-interactive`, `main` push → `.github/workflows/pages.yml`이 문법 검사 후 `index.html`, `styles.css`, JS 3개, `assets/`만 배포
+- 최신 커밋: `1986290`(기능) 이후 이 문서 정리 커밋. 미커밋 파일은 원본 `assets/click me.png` 하나이며 의도적으로 올리지 않습니다(올리면 `assets/` 전체 복사 때문에 함께 배포됨).
+
+### 도메인을 다시 연결해야 할 때
+
+1. 가비아 DNS(`graphicsoverfit.com`): A `@` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153` / CNAME `www` → `jmwfdisk.github.io.`
+2. GitHub 계정 Settings → Pages → Add a domain으로 소유 인증. 가비아에 TXT `_github-pages-challenge-jmwfdisk` 추가(값은 GitHub 화면에 표시). 이 TXT는 인증 후에도 지우지 않습니다. 인증 전에는 "already taken" 오류가 났습니다.
+3. `gh api -X PUT repos/jmwfdisk/graphicsoverfit-interactive/pages -f cname=graphicsoverfit.com`
+4. 인증서 승인 후 `gh api -X PUT repos/jmwfdisk/graphicsoverfit-interactive/pages -F https_enforced=true`
+5. Actions 배포 방식이라 `CNAME` 파일은 만들지 않습니다. `index.html`의 `og:url`, `og:image`는 새 도메인 절대 주소입니다.
+
+### 이번 세션에서 만든 동작과 코드 위치
+
+| 동작 | 파일·위치 | 핵심 |
+|---|---|---|
+| 룩북 스크롤 연동(모바일 포함) | `app.js` `measureGalleryScroll` | 조건: 모션 허용 + `stableHeight()>=620`. `pointer: fine`·901px 조건 제거 |
+| 아카이브 Collection Surfer(모바일 포함) | `app.js` Collection Surfer IIFE의 `measure`/`render`, `styles.css`의 `@media(max-width:900px)` 「좁은 화면의 Collection Surfer」 블록 | 900px 이하: 높이 600px 이상, 카드 간격 `innerWidth*.5`, 한 장당 스크롤 `max(300, 높이*.5)` |
+| 주소창에 흔들리지 않는 높이 | `app.js` `viewportProbe`/`stableHeight()` | `height:100svh` 보이지 않는 요소의 `offsetHeight` |
+| 모바일 컬러칩 위치 | `styles.css` 「모바일: 컬러칩을…」 블록 | 600px 이하에서 `.hero-bottom` 기준 `position:absolute;top:0;right:0`, 사진 `margin-top:52px` |
+| 룩북 번호 버튼 원형 | `styles.css` `.shot-nav button{min-width:36px;min-height:36px}` | 이전 32×40이 타원 원인 |
+| 룩북 좌우 화살표 삭제 | `index.html`, `app.js` | 버튼과 `galleryState`/`prev`/`next` 코드 제거. `moveGallery`는 방향키용으로 유지 |
+| STEP INSIDE 터치 재생 | `world.js` Letter Cascade IIFE의 `pointerdown` | 마우스가 아니고 제목 영역 안이면 `play()` |
+| WEAR YOUR GRAPHICS 터치 밀어내기 | `app.js` Text Repel IIFE의 `touchAt`/`touchEnd` | 손 뗀 뒤 350ms 유지. `pointerleave`는 마우스만 처리(터치는 손을 떼면 leave가 따라와 바로 풀리기 때문) |
+| CLICK ME 말풍선 | `index.html` `.closing-link` 안 `img.click-me`, `app.js` closing IIFE에서 첫 줄 끝에 붙임, `styles.css` `.closing-link .click-me` | 높이 `.6em`, 5도 기울임, `click-me-bob` 1.8초 반복 |
+| "그림이 되고…" Flip Text | `app.js` 마지막 IIFE, `styles.css` `flip-text` 키프레임 | 화면 60% 진입 시 전체 글자 동시 `rotateX(360deg)` 0.8초. 벗어나면 초기화 후 재진입 시 재생 |
+| "생각은 자유롭게…" 순차 재생 | `app.js` manifesto IIFE의 `players`와 끝의 IntersectionObserver | 화면 60% 진입 시 1→2→3 문장. 앞 문장 변위가 4% 이내·속도 0.6 이하가 되면 다음 시작(약 0 / 0.6 / 1.75초). 호버·클릭 재생은 유지 |
+
+### CLICK ME 이미지 변환 방법
+
+원본 `assets/click me.png`(1983×793, 투명 배경) → 알파 24 초과 영역으로 자르고 여백 6px → 너비 640px로 축소 → WebP 품질 88 = `assets/click-me.webp`(640×226). Python Pillow로 처리했습니다.
+
+### 검수 방법
+
+- 문법: `node --check entry.js && node --check app.js && node --check world.js`
+- 화면: 임시 폴더에 `npm i puppeteer-core` 후 설치된 Chrome(`/Applications/Google Chrome.app`)을 헤드리스로 띄워 `http://127.0.0.1:8080`을 390×844·390×664(모바일, 터치 에뮬레이션)와 1440×900에서 스크롤·터치·캡처했습니다. 저장소에는 테스트 스크립트를 두지 않았습니다.
+- 파일을 고치면 `index.html`의 해당 `?v=` 값을 바꿉니다. 현재 값: `entry.js?v=20261003-review`, `styles.css?v=20261003-flip-scroll`, `app.js?v=20261003-manifesto-auto`, `world.js?v=20261003-touch-titles`.
+
+### 확인하지 못한 것과 남은 일
+
+- 실제 iOS Safari·터치 기기 검수(스크롤 연동 구간의 관성, 주소창 접힘, 제목 터치 느낌). 지금까지는 Chrome 에뮬레이션만 확인했습니다.
+- CLICK ME 말풍선의 연두색이 구간 배경색과 같아 테두리와 글자만 보입니다. 안쪽을 흰색·크림색으로 바꿀지 미정입니다.
+- 오른쪽 아래 "모션 끄기" 버튼이 룩북·아카이브 하단 안내 문구(SCROLL … EXPLORE)를 일부 가립니다.
+- 모바일 첫 화면에서 문서 너비가 393px로 화면(390px)보다 3px 넓게 측정된 적이 있습니다. 원인은 찾지 않았습니다.
+- 카드 기울임(아카이브)과 히어로 사진 따라오기는 여전히 마우스 전용입니다.
