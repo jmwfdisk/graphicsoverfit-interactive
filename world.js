@@ -32,6 +32,8 @@
  cards.forEach((card,i)=>card.addEventListener('click',()=>select(i,card)));
  document.querySelectorAll('[data-pick]').forEach((button,i)=>button.addEventListener('click',()=>select(i,button)));
  returnButton.addEventListener('click',close);
+ // 선택 상태에서 카드·설명 패널·버튼·링크 바깥(빈 공간)을 누르면 닫는다.
+ stage.addEventListener('click',event=>{if(selected>=0&&!event.target.closest('.world-art,.world-detail,[data-pick],a,button'))close();});
  stage.addEventListener('keydown',event=>{if(event.key==='Escape'&&selected>=0){event.preventDefault();close();}});
  stage.addEventListener('pointermove',event=>{if(event.pointerType!=='mouse'||motion.matches)return;const rect=stage.getBoundingClientRect();px=(event.clientX-rect.left)/rect.width-.5;py=(event.clientY-rect.top)/rect.height-.5;schedule();});
  stage.addEventListener('pointerleave',()=>{px=0;py=0;schedule();});
