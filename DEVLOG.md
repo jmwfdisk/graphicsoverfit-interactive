@@ -393,3 +393,11 @@ python3 -m http.server 8080 --bind 127.0.0.1
 - `styles.css`의 `.gas-mask-art` 배경을 `#fff` → `#000`으로 바꿔 카드 여백이 이미지와 이어지게 했습니다. 모달 설명 문구와 대체 텍스트도 새 이미지에 맞게 고쳤습니다.
 - 헤드리스 Chrome 1440×900에서 카드(05 위치)와 확대 모달을 확인했습니다. 콘솔 오류·누락 이미지 없음.
 - `index.html`의 `styles.css` `?v=`를 `20261008-gas-mask-neon`으로 갱신했습니다.
+
+## 2026-10-08 첫 화면 3D 갤러리 03 교체 (SKATE CULTURE → GRAFFITI LOGO)
+
+- 첫 화면 3D 갤러리 세 번째 카드를 Skate Culture에서 왕관을 얹은 그래피티 레터링으로 바꿨습니다. 원본은 사용자 제공 `~/Downloads/그래피티 로고.png`(1774×887, 투명 배경)이며 알파 24 초과 영역으로 자르고 여백 6px → 너비 1200px → `assets/graffiti-logo.webp`(투명 유지, 품질 84, 약 169KB)로 변환했습니다. 이전 `assets/skate-culture.webp`는 삭제했습니다.
+- 가로로 긴 레터링에 맞춰 `.world-spirit` 카드를 가로형으로 바꿨습니다(데스크톱 `clamp(190px,22vw,330px)`×`clamp(125px,14.5vw,215px)`, 모바일 150×100). 선택 상태는 `.world-spirit.is-selected`로 높이만 줄였습니다(데스크톱 `clamp(200px,24vw,330px)`, 모바일 160px). 이미지 배경 `#efe0bc`는 그대로라 투명 레터링 뒤에 크림색이 깔립니다.
+- `world.js` `works[2]`를 `['GRAFFITI LOGO','왕관을 얹은 오렌지 레터링. 벽에서 튀어나온 그래픽스 오버핏.']`으로, HTML의 `aria-label`·`alt`·캡션·`data-pick` 레이블을 함께 바꿨습니다. 제목과 설명은 임시로 지은 것입니다.
+- 헤드리스 Chrome 1440×900, 390×844에서 진입 애니메이션 후 배치와 03 선택 상태를 확인했습니다. 콘솔 오류·누락 이미지 없음.
+- `index.html`의 `world.js`·`styles.css` `?v=`를 `20261008-graffiti-logo`로 갱신했습니다.

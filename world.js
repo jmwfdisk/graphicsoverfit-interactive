@@ -4,7 +4,7 @@
  const camera=document.querySelector('.world-camera'),cards=[...document.querySelectorAll('.world-art')];
  const detail=document.querySelector('.world-detail'),returnButton=document.querySelector('.world-return');
  const motion=window.siteMotion;
- const works=[['RETRO STARS','오렌지와 크림 컬러, 별 모티프가 만난 빈티지 레터링.'],['GOF STARS','자유로운 붓 자국과 별빛으로 표현한 GOF.'],['SKATE CULTURE','움직임과 함께하는 친구들. 그래픽스 오버핏의 스트리트 감각.'],['CUT & PASTE','서로 다른 조각이 만나 하나의 이름이 되는 순간.']];
+ const works=[['RETRO STARS','오렌지와 크림 컬러, 별 모티프가 만난 빈티지 레터링.'],['GOF STARS','자유로운 붓 자국과 별빛으로 표현한 GOF.'],['GRAFFITI LOGO','왕관을 얹은 오렌지 레터링. 벽에서 튀어나온 그래픽스 오버핏.'],['CUT & PASTE','서로 다른 조각이 만나 하나의 이름이 되는 순간.']];
  let selected=-1,opener=null,px=0,py=0,frame=0,visible=true;
  function render(){
   frame=0;

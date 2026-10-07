@@ -50,9 +50,9 @@ body[data-palette=lime]{--green:#d3ef7a}body[data-palette=lilac]{--green:#c8b8f3
 @media(prefers-reduced-motion:reduce),(max-height:619px){.world-track{height:auto}.world-stage{position:relative}.world-camera{transition:none}}
 /* New brand artwork in the opening space and archive. */
 .world-youth img{object-fit:contain;background:#fbf1db}.world-type img{background:#080b09}.world-spirit img{background:#efe0bc}.world-letter img{background:#8d8d83}
-.world-spirit{width:clamp(140px,16vw,230px);height:clamp(175px,21vw,300px);--wy:185px}
+.world-spirit{width:clamp(190px,22vw,330px);height:clamp(125px,14.5vw,215px);--wy:185px}.world-spirit.is-selected{height:clamp(200px,24vw,330px)}
 .logo-archive img{padding:18px}.logo-archive.gof-stars{background:#080b09}.logo-archive.retro-stars{background:#fbf1db}.logo-archive.skate-culture{background:#efe0bc}.logo-archive.gof-crayon{background:#8d8d83}
-@media(max-width:600px){.world-spirit{width:115px;height:150px;--wy:155px}.world-art.is-selected{width:185px;height:245px}}
+@media(max-width:600px){.world-spirit{width:150px;height:100px;--wy:155px}.world-art.is-selected{width:185px;height:245px}.world-spirit.is-selected{height:160px}}
 
 
 /* Central official logo and one-time entrance. */
