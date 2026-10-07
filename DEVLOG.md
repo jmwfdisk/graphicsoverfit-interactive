@@ -401,3 +401,9 @@ python3 -m http.server 8080 --bind 127.0.0.1
 - `world.js` `works[2]`를 `['GRAFFITI LOGO','왕관을 얹은 오렌지 레터링. 벽에서 튀어나온 그래픽스 오버핏.']`으로, HTML의 `aria-label`·`alt`·캡션·`data-pick` 레이블을 함께 바꿨습니다. 제목과 설명은 임시로 지은 것입니다.
 - 헤드리스 Chrome 1440×900, 390×844에서 진입 애니메이션 후 배치와 03 선택 상태를 확인했습니다. 콘솔 오류·누락 이미지 없음.
 - `index.html`의 `world.js`·`styles.css` `?v=`를 `20261008-graffiti-logo`로 갱신했습니다.
+
+## 2026-10-08 아카이브 05 GAS MASK 배경을 흰색으로
+
+- 위 교체 직후 사용자 요청으로 카드·모달 배경을 검정에서 흰색으로 바꿨습니다. 원본 PNG는 배경이 투명(완전 투명 49%, 나머지는 반투명 글로우)이라 흰색 위에 합성해 `assets/gas-mask-white.webp`(품질 84, 약 206KB)로 다시 만들었고 `assets/gas-mask-neon.webp`는 삭제했습니다.
+- `.gas-mask-art` 배경을 `#000` → `#fff`로 되돌리고 설명 문구·대체 텍스트에서 「어둠 속」 표현을 뺐습니다. `styles.css` `?v=`는 `20261008-gas-mask-white`.
+- 헤드리스 Chrome 1440×900에서 카드와 모달 확인. 흰 배경에서는 글로우가 연한 푸른 번짐으로 보입니다.
