@@ -416,13 +416,13 @@ python3 -m http.server 8080 --bind 127.0.0.1
 
 ## 2026-10-08 세션 정리와 재개 지점
 
-2026-10-07~08 세션(아이패드 가로 모드 수정 ~ 바깥 클릭 닫기)의 최종 상태입니다. 이 섹션만 읽고도 이어서 작업할 수 있도록 적습니다. 2026-10-04 정리 섹션의 도메인·검수 절차는 그대로 유효합니다.
+2026-10-07~08 세션(아이패드 가로 모드 수정 ~ 회오리 진입 이징 수정)의 최종 상태입니다. 이 섹션만 읽고도 이어서 작업할 수 있도록 적습니다. 2026-10-04 정리 섹션의 도메인·검수 절차는 그대로 유효합니다.
 
 ### 배포 상태
 
-- 공개 주소 https://graphicsoverfit.com, 저장소 `jmwfdisk/graphicsoverfit-interactive`. `main`의 마지막 커밋은 `c538f5c`(Close selected world artwork on outside click)이며 배포까지 성공해 공개 사이트에서 확인했습니다.
+- 공개 주소 https://graphicsoverfit.com, 저장소 `jmwfdisk/graphicsoverfit-interactive`. `main`의 마지막 커밋은 `b19922b`(Smooth world vortex entrance easing and gate it on image decode)이며 배포까지 성공해 공개 사이트에서 확인했습니다. 그 뒤 이 정리 섹션 갱신 커밋이 하나 더 있습니다.
 - 미커밋 파일은 원본 `assets/click me.png` 하나뿐이며 의도적으로 올리지 않습니다.
-- 현재 캐시 값: `entry.js?v=20261003-review`, `styles.css?v=20261008-gas-mask-white`, `app.js?v=20261007-ipad-surfer`, `world.js?v=20261008-click-outside`.
+- 현재 캐시 값: `entry.js?v=20261003-review`, `styles.css?v=20261008-vortex-easing`, `app.js?v=20261007-ipad-surfer`, `world.js?v=20261008-vortex-easing`.
 - 이번 세션 중 GitHub Actions 장애(상태 페이지 major outage)로 push가 500 오류로 여러 번 거부되고 Pages 배포도 세 번 실패했습니다. push는 시간을 두고 재시도하면 되고, 배포는 `gh run rerun <id> --failed` 또는 `gh workflow run pages.yml --ref main`으로 다시 돌리면 됩니다. 배포 후에는 `curl -s -o /dev/null -w '%{http_code}' https://graphicsoverfit.com/assets/<파일>`로 실제 반영을 확인합니다(CDN 반영에 30초~1분).
 
 ### 이번 세션 커밋과 코드 위치
@@ -434,6 +434,7 @@ python3 -m http.server 8080 --bind 127.0.0.1
 | `b79a91d`·`55638f7` | 아카이브 05 GAS MASK 교체 | `index.html` 다섯 번째 `.art-card`, `styles.css` `.gas-mask-art{background:#fff}`, `assets/gas-mask-white.webp` | 투명 PNG를 흰색에 합성. 검정 버전(`gas-mask-neon.webp`)은 삭제 |
 | `fc4025e` | 첫 화면 3D 갤러리 03 GRAFFITI LOGO | `index.html` `.world-spirit` 카드와 `[data-pick="2"]`, `world.js` `works[2]`, `styles.css` `.world-spirit`·`.world-spirit.is-selected`, `assets/graffiti-logo.webp` | 투명 WebP, 카드를 가로형으로. `skate-culture.webp` 삭제 |
 | `c538f5c` | 작품 선택 상태에서 바깥 클릭 닫기 | `world.js` `stage` click 리스너 | `.world-art,.world-detail,[data-pick],a,button` 밖을 누르면 `close()` |
+| `b19922b` | 회오리 진입 애니메이션 끊김 완화 | `styles.css` `@keyframes world-vortex-arrival`, `world.js` `decoded`/`introObserver`, `index.html` 카드 `img decoding="async"` | 키프레임별 `animation-timing-function`(0% ease-out, 58%·82% ease-in-out), 반동 폭 축소, `img.decode()` 후(최대 600ms) 시작 |
 
 ### 이미지 변환 방법(이번 세션)
 
@@ -448,6 +449,7 @@ Python Pillow 사용. 투명 PNG는 `convert('RGBA')` 후 배경색 `Image.new('
 ### 확인하지 못한 것과 남은 일
 
 - 실제 아이패드 사파리 가로 모드에서 아카이브 3D 연출이 켜지는지 미확인(에뮬레이션만 확인). 높이 600px 미만이면 여전히 격자로 떨어집니다.
+- 회오리 진입 애니메이션의 실기기 체감 미확인. 아직 끊겨 보이면 다음 순서로 시도: ① 58%·82% 반동 키프레임을 없애고 0→100% 단일 ease-out으로 ② `.world-art-face`의 큰 `box-shadow` 블러(35px)를 줄이거나 진입 중에는 끄기 ③ 카드별 `--vortex-duration` 차이(0.22s 간격)를 줄이기.
 - 첫 화면 03 GRAFFITI LOGO의 제목·설명 문구(`world.js` `works[2]`)와 아카이브 05 설명 문구는 임시입니다.
 - 가스마스크 흰 배경에서 네온 글로우가 연한 푸른 번짐으로 보입니다. 원본은 검은 배경용 글로우라 흰 배경에 맞춘 원본을 받으면 더 깔끔합니다.
 - 사용자가 요청한 「푸터의 호스팅 GitHub, Inc. (GitHub Pages) 문구 삭제」는 이 저장소(HTML·JS·CSS·공개 페이지)에 해당 문구가 없어 보류. 본 홈페이지(graphicsoverfit.co.kr) 쪽 프로젝트로 추정되며 경로 확인이 필요합니다.
