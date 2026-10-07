@@ -50,11 +50,13 @@
  let introPlayed=fromReload;
  function finishIntro(){stage.classList.remove('vortex-entering','vortex-pending');}
  if(!motion.matches&&!fromReload)stage.classList.add('vortex-pending');
+ // 이미지 디코드가 끝난 뒤(최대 600ms 대기) 회오리를 시작해 첫 프레임이 끊기지 않게 한다.
+ const decoded=Promise.race([Promise.all(cards.map(card=>card.querySelector('img').decode().catch(()=>{}))),new Promise(resolve=>setTimeout(resolve,600))]);
  const introObserver=new IntersectionObserver(entries=>{
   if(!entries[0].isIntersecting||introPlayed)return;
   introPlayed=true;introObserver.disconnect();
   if(motion.matches){finishIntro();return;}
-  stage.classList.remove('vortex-pending');stage.classList.add('vortex-entering');
+  decoded.then(()=>{if(motion.matches){finishIntro();return;}stage.classList.remove('vortex-pending');stage.classList.add('vortex-entering');});
  },{threshold:.2});
  if(!fromReload)introObserver.observe(stage);
  orbits[orbits.length-1].addEventListener('animationend',event=>{if(event.animationName==='world-vortex-arrival')finishIntro();});

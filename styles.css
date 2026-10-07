@@ -61,11 +61,12 @@ body[data-palette=lime]{--green:#d3ef7a}body[data-palette=lilac]{--green:#c8b8f3
 .world-vortex{position:absolute;inset:0;transform-style:preserve-3d;transform-origin:50% 60%;pointer-events:none}
 .vortex-pending .world-vortex{opacity:0}
 .vortex-entering .world-vortex{animation:world-vortex-arrival var(--vortex-duration) cubic-bezier(.12,.65,.16,1) both;will-change:transform,opacity}
+/* 구간별 이징: 애니메이션 공통 곡선은 키프레임 사이마다 다시 시작되므로, 반동 구간(58%·82%)에는 ease-in-out을 따로 지정해 속도가 끊기지 않게 한다. */
 @keyframes world-vortex-arrival{
- 0%{opacity:0;transform:translateZ(-650px) rotateZ(var(--vortex-start)) rotateX(24deg) scale(.12)}
+ 0%{opacity:0;transform:translateZ(-650px) rotateZ(var(--vortex-start)) rotateX(24deg) scale(.12);animation-timing-function:cubic-bezier(.18,.6,.22,1)}
  12%{opacity:1}
- 58%{opacity:1;transform:translateZ(85px) rotateZ(35deg) rotateX(-9deg) scale(1.06)}
- 82%{transform:translateZ(-12px) rotateZ(-6deg) rotateX(3deg) scale(.98)}
+ 58%{opacity:1;transform:translateZ(60px) rotateZ(22deg) rotateX(-6deg) scale(1.04);animation-timing-function:cubic-bezier(.45,0,.55,1)}
+ 82%{transform:translateZ(-8px) rotateZ(-4deg) rotateX(2deg) scale(.99);animation-timing-function:cubic-bezier(.45,0,.55,1)}
  100%{opacity:1;transform:translateZ(0) rotateZ(0deg) rotateX(0deg) scale(1)}
 }
 @media(max-width:600px){.world-emblem{width:150px;padding:8px;top:60%}}

@@ -453,3 +453,12 @@ Python Pillow 사용. 투명 PNG는 `convert('RGBA')` 후 배경색 `Image.new('
 - 사용자가 요청한 「푸터의 호스팅 GitHub, Inc. (GitHub Pages) 문구 삭제」는 이 저장소(HTML·JS·CSS·공개 페이지)에 해당 문구가 없어 보류. 본 홈페이지(graphicsoverfit.co.kr) 쪽 프로젝트로 추정되며 경로 확인이 필요합니다.
 - 2026-10-04 정리 섹션의 남은 일(모션 끄기 버튼이 하단 안내 문구를 가림, 모바일 문서 너비 3px 초과, 카드 기울임·히어로 사진 따라오기 마우스 전용)은 그대로입니다.
 - 헤더 「Explore shop」 옆과 모바일 햄버거 메뉴에는 Official website 링크를 넣지 않았습니다. 필요하면 `index.html` 15~16행에 추가합니다.
+
+## 2026-10-08 첫 화면 회오리 진입 애니메이션 끊김 완화
+
+- 증상: 첫 접속 시 로고 카드가 회전하며 들어올 때 중간에 끊기는 듯한 움직임.
+- 원인: `world-vortex-arrival` 키프레임이 0→58→82→100% 네 구간인데, 애니메이션 공통 이징 `cubic-bezier(.12,.65,.16,1)`(강한 ease-out)이 CSS 규칙상 구간마다 다시 적용되어 58%·82%에서 속도가 0이 됐다가 급가속했습니다. 헤드리스 Chrome rAF 측정에서는 프레임 간격이 모두 17ms로 프레임 드롭은 없었으므로 이징 구조가 원인입니다.
+- 수정: 키프레임마다 `animation-timing-function`을 지정(0% ease-out `cubic-bezier(.18,.6,.22,1)`, 58%·82% ease-in-out `cubic-bezier(.45,0,.55,1)`). 반동 폭도 줄였습니다(58%: translateZ 85→60px, rotateZ 35→22deg, scale 1.06→1.04 / 82%: -12→-8px, -6→-4deg, .98→.99).
+- 보조: 첫 화면 카드 이미지 4개에 `decoding="async"`를 붙이고, `world.js`에서 `img.decode()` 완료(최대 600ms 대기)를 기다린 뒤 `vortex-entering`을 붙이도록 해 실기기에서 디코드로 인한 첫 프레임 끊김을 막았습니다. 새로고침·모션 감소 시 동작은 그대로입니다.
+- 검수: 헤드리스 Chrome 1440×900에서 0.7·1.5·2.3·3.8초 캡처로 재생·정착 확인, 콘솔 오류 없음. 실기기 GPU 체감은 사용자 확인 필요.
+- `index.html`의 `styles.css`·`world.js` `?v=`를 `20261008-vortex-easing`으로 갱신했습니다.
