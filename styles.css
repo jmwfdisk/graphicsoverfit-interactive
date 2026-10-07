@@ -200,7 +200,7 @@ html.motion-paused{scroll-behavior:auto}
 .motion-paused .takeover-model{opacity:.72;transform:translateX(-50%)}
 .motion-paused .takeover-statement{opacity:1;clip-path:none;top:auto;bottom:95px;background:transparent;padding:6px}
 
-.gas-mask-art{background:#fff}.gas-mask-art img{object-fit:contain;padding:12px}
+.gas-mask-art{background:#000}.gas-mask-art img{object-fit:contain;padding:12px}
 
 .pride-art{background:#fff}.pride-art img{object-fit:contain;padding:12px}
 

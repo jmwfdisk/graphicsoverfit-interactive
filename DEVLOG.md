@@ -386,3 +386,10 @@ python3 -m http.server 8080 --bind 127.0.0.1
 
 - 첫 화면 `.world-links`(「컬렉션 보기 ↗」「브랜드 이야기 ↘」) 옆에 같은 스타일로 「Official website ↗」(https://graphicsoverfit.co.kr/, 푸터와 같은 문구)를 추가했습니다(처음엔 「오피셜 사이트」였다가 영어로 변경). CSS 변경 없음.
 - 헤드리스 Chrome 1440×900, 390×844, 1024×650에서 확인했습니다. 모바일은 세 링크가 세로로 쌓이며 제목과 겹치지 않습니다. 가로 넘침 없음.
+
+## 2026-10-08 아카이브 05 GAS MASK 이미지 교체
+
+- ART ARCHIVE 05번 카드를 흰 배경 버전에서 검은 배경 네온 버전으로 바꿨습니다. 원본은 사용자 제공 `~/Downloads/그래피티 방독면3 하단문구.png`(1024×1536, RGBA, 하단에 WEAR YOUR GRAPHICS 문구)이며 검은색 위에 합성해 `assets/gas-mask-neon.webp`(품질 84, 약 174KB)로 변환했습니다. 캐시 때문에 파일명을 새로 지었고 이전 `assets/gas-mask-art.webp`는 삭제했습니다.
+- `styles.css`의 `.gas-mask-art` 배경을 `#fff` → `#000`으로 바꿔 카드 여백이 이미지와 이어지게 했습니다. 모달 설명 문구와 대체 텍스트도 새 이미지에 맞게 고쳤습니다.
+- 헤드리스 Chrome 1440×900에서 카드(05 위치)와 확대 모달을 확인했습니다. 콘솔 오류·누락 이미지 없음.
+- `index.html`의 `styles.css` `?v=`를 `20261008-gas-mask-neon`으로 갱신했습니다.
