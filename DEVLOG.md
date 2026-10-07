@@ -413,3 +413,43 @@ python3 -m http.server 8080 --bind 127.0.0.1
 - `world.js`에 `stage` 클릭 리스너를 추가했습니다. 선택 상태(`selected>=0`)에서 클릭 대상이 `.world-art`, `.world-detail`, `[data-pick]`, `a`, `button` 안이 아니면 `close()`를 호출합니다. 「공간으로 돌아가기」 버튼·Escape·같은 카드 재클릭·번호 버튼 재클릭으로 닫는 기존 동작은 그대로입니다.
 - 헤드리스 Chrome 1440×900(마우스)과 390×844(터치 탭)에서 확인: 설명 패널 안을 눌러도 유지, 빈 공간을 누르면 닫힘, 번호 버튼으로 다시 열기와 돌아가기 버튼 정상.
 - `index.html`의 `world.js` `?v=`를 `20261008-click-outside`로 갱신했습니다.
+
+## 2026-10-08 세션 정리와 재개 지점
+
+2026-10-07~08 세션(아이패드 가로 모드 수정 ~ 바깥 클릭 닫기)의 최종 상태입니다. 이 섹션만 읽고도 이어서 작업할 수 있도록 적습니다. 2026-10-04 정리 섹션의 도메인·검수 절차는 그대로 유효합니다.
+
+### 배포 상태
+
+- 공개 주소 https://graphicsoverfit.com, 저장소 `jmwfdisk/graphicsoverfit-interactive`. `main`의 마지막 커밋은 `c538f5c`(Close selected world artwork on outside click)이며 배포까지 성공해 공개 사이트에서 확인했습니다.
+- 미커밋 파일은 원본 `assets/click me.png` 하나뿐이며 의도적으로 올리지 않습니다.
+- 현재 캐시 값: `entry.js?v=20261003-review`, `styles.css?v=20261008-gas-mask-white`, `app.js?v=20261007-ipad-surfer`, `world.js?v=20261008-click-outside`.
+- 이번 세션 중 GitHub Actions 장애(상태 페이지 major outage)로 push가 500 오류로 여러 번 거부되고 Pages 배포도 세 번 실패했습니다. push는 시간을 두고 재시도하면 되고, 배포는 `gh run rerun <id> --failed` 또는 `gh workflow run pages.yml --ref main`으로 다시 돌리면 됩니다. 배포 후에는 `curl -s -o /dev/null -w '%{http_code}' https://graphicsoverfit.com/assets/<파일>`로 실제 반영을 확인합니다(CDN 반영에 30초~1분).
+
+### 이번 세션 커밋과 코드 위치
+
+| 커밋 | 동작 | 파일·위치 | 핵심 |
+|---|---|---|---|
+| `6b73beb` | 아이패드 가로 모드 아카이브 Collection Surfer | `app.js` `measure()`, `styles.css` `.surfer-enabled .archive` | 켜짐 조건을 너비 무관 높이 600px 이상으로. `min-height` 680→600px |
+| `bc9cf03`·`1d81fbc`·`c0fcd39` | 첫 화면 우측 상단 Official website 링크 | `index.html` `.world-links` | 「컬렉션 보기 / 브랜드 이야기」 옆, https://graphicsoverfit.co.kr/ (푸터와 같은 문구) |
+| `b79a91d`·`55638f7` | 아카이브 05 GAS MASK 교체 | `index.html` 다섯 번째 `.art-card`, `styles.css` `.gas-mask-art{background:#fff}`, `assets/gas-mask-white.webp` | 투명 PNG를 흰색에 합성. 검정 버전(`gas-mask-neon.webp`)은 삭제 |
+| `fc4025e` | 첫 화면 3D 갤러리 03 GRAFFITI LOGO | `index.html` `.world-spirit` 카드와 `[data-pick="2"]`, `world.js` `works[2]`, `styles.css` `.world-spirit`·`.world-spirit.is-selected`, `assets/graffiti-logo.webp` | 투명 WebP, 카드를 가로형으로. `skate-culture.webp` 삭제 |
+| `c538f5c` | 작품 선택 상태에서 바깥 클릭 닫기 | `world.js` `stage` click 리스너 | `.world-art,.world-detail,[data-pick],a,button` 밖을 누르면 `close()` |
+
+### 이미지 변환 방법(이번 세션)
+
+Python Pillow 사용. 투명 PNG는 `convert('RGBA')` 후 배경색 `Image.new('RGB')`에 알파 마스크로 `paste`해 합성하거나(가스마스크 흰 배경), 알파를 유지한 채 저장(그래피티 로고). 그래피티 로고는 알파 24 초과 영역으로 자르고 여백 6px, 너비 1200px로 축소. WebP 품질 84, `method=6`. 캐시 때문에 교체 이미지는 항상 새 파일명을 씁니다.
+
+### 검수 방법
+
+- 이번 세션은 Chrome 확장이 연결되지 않아 헤드리스 Chrome(puppeteer-core, 스크래치 폴더에 설치)으로 검수했습니다. 로컬 서버는 `python3 -m http.server 8137 --bind 127.0.0.1`(8080은 다른 프로젝트가 쓸 수 있음).
+- 확인한 크기: 1440×900, 390×844(터치), 아이패드 가로 1024×620·1133×650·1180×700·1024×768(터치).
+- 문법: `node --check entry.js && node --check app.js && node --check world.js`
+
+### 확인하지 못한 것과 남은 일
+
+- 실제 아이패드 사파리 가로 모드에서 아카이브 3D 연출이 켜지는지 미확인(에뮬레이션만 확인). 높이 600px 미만이면 여전히 격자로 떨어집니다.
+- 첫 화면 03 GRAFFITI LOGO의 제목·설명 문구(`world.js` `works[2]`)와 아카이브 05 설명 문구는 임시입니다.
+- 가스마스크 흰 배경에서 네온 글로우가 연한 푸른 번짐으로 보입니다. 원본은 검은 배경용 글로우라 흰 배경에 맞춘 원본을 받으면 더 깔끔합니다.
+- 사용자가 요청한 「푸터의 호스팅 GitHub, Inc. (GitHub Pages) 문구 삭제」는 이 저장소(HTML·JS·CSS·공개 페이지)에 해당 문구가 없어 보류. 본 홈페이지(graphicsoverfit.co.kr) 쪽 프로젝트로 추정되며 경로 확인이 필요합니다.
+- 2026-10-04 정리 섹션의 남은 일(모션 끄기 버튼이 하단 안내 문구를 가림, 모바일 문서 너비 3px 초과, 카드 기울임·히어로 사진 따라오기 마우스 전용)은 그대로입니다.
+- 헤더 「Explore shop」 옆과 모바일 햄버거 메뉴에는 Official website 링크를 넣지 않았습니다. 필요하면 `index.html` 15~16행에 추가합니다.
