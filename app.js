@@ -461,7 +461,7 @@ colorpopObserver.observe(heroPhoto);
   // 좁은 화면은 카드를 좌우로 넓게 벌리고, 한 장당 스크롤 거리를 줄인다.
   const height=stableHeight();
   narrow=innerWidth<=900;
-  enabled=!reduceMotion.matches&&height>=(narrow?600:680);
+  enabled=!reduceMotion.matches&&height>=600;
   track.classList.toggle('surfer-enabled',enabled);controls.hidden=!enabled;
   step=narrow?Math.max(300,height*.5):Math.max(400,height*.7);
   track.style.height=enabled?`${height+step*(cards.length-1)}px`:'';

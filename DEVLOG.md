@@ -373,3 +373,11 @@ python3 -m http.server 8080 --bind 127.0.0.1
 
 - ART ARCHIVE 04번 카드를 Skate Culture에서 Neon Night로 바꿨습니다. 원본은 사용자 제공 `홈페이지 제작/그래픽스오버핏/image/그래픽스오버핏 그림.PNG`(1024×1536)이며 `assets/neon-night.webp`(품질 84)로 변환했습니다.
 - 카드 이름 "NEON NIGHT", 분류 "CHARACTER ART / 04", 설명 문구는 임시로 지은 것입니다. 첫 화면 3D 갤러리의 03 SKATE CULTURE 카드와 `assets/skate-culture.webp`는 그대로 사용합니다.
+
+## 2026-10-07 아이패드 가로 모드에서 아카이브 Collection Surfer 켜기
+
+- 증상: 아이패드 가로 모드에서 ART ARCHIVE가 3D 카드 연출 없이 평면 격자로만 보였습니다.
+- 원인: `app.js` Collection Surfer의 켜짐 조건이 너비 901px 이상일 때 높이 680px 이상이었습니다. 아이패드 가로 모드는 사파리 툴바를 뺀 높이가 기기에 따라 620~700px 사이라 조건을 넘지 못했습니다. 세로 모드는 너비 900px 이하 분기라 600px 기준이 적용되어 정상이었습니다.
+- 수정: 너비와 무관하게 높이 600px 이상이면 켭니다(`enabled=!reduceMotion.matches&&height>=600`). `styles.css`의 `.surfer-enabled .archive` `min-height`도 680px → 600px. 넓은 배치는 vh·clamp 기반이라 600px 높이에서도 제목·카드·번호 버튼이 한 화면에 들어갑니다.
+- 검수: 헤드리스 Chrome(터치 에뮬레이션)에서 1024×620, 1133×650, 1180×700, 1024×768로 아카이브 시작·중간·끝 지점을 캡처했습니다. 가로 넘침 없음. 실제 아이패드 사파리는 확인하지 못했습니다.
+- `index.html`의 `app.js`·`styles.css` `?v=`를 `20261007-ipad-surfer`로 갱신했습니다.

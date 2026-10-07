@@ -253,7 +253,7 @@ html.motion-paused{scroll-behavior:auto}
 .closing-outline .closing-arrow{color:var(--ink);-webkit-text-stroke:0}
 
 /* Perspective collection is contained within the archive's own scroll track. */
-.surfer-enabled .archive{position:sticky;top:0;height:100vh;min-height:680px;padding-top:24px;padding-bottom:20px;overflow:hidden;display:flex;flex-direction:column}
+.surfer-enabled .archive{position:sticky;top:0;height:100vh;min-height:600px;padding-top:24px;padding-bottom:20px;overflow:hidden;display:flex;flex-direction:column}
 .surfer-enabled .archive .section-heading{margin:18px 0 12px;flex-shrink:0;align-items:center}
 .surfer-enabled .archive .section-heading h2{font-size:clamp(36px,4.3vw,68px);line-height:.9}
 .surfer-enabled .archive .section-heading p{font-size:12px}
